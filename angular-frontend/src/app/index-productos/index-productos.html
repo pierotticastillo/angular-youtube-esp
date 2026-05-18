@@ -1,0 +1,39 @@
+<h2>Lista de Laptops</h2>
+
+<div *ngIf="isLoading()" class="loading-message">
+  <p>Cargando laptops...</p>
+</div>
+
+<div *ngIf="error()" class="error-message">
+  <p>{{ error() }}</p>
+  <button (click)="loadLaptops(true)" class="retry-button">Reintentar</button>
+</div>
+
+<div *ngIf="!isLoading() && !error()">
+  <div *ngIf="laptops().length === 0" class="empty-message">
+    <p>No hay laptops creadas aun.</p>
+    <button (click)="onCreate()" class="create-button">Crear primera laptop</button>
+  </div>
+
+  <div *ngIf="laptops().length > 0" class="laptops-table">
+    <div class="table-header">
+      <div class="header-cell">ID</div>
+      <div class="header-cell">Nombre</div>
+      <div class="header-cell">Acciones</div>
+    </div>
+
+    <div *ngFor="let laptop of laptops()" class="table-row">
+      <div class="table-cell">{{ laptop.id }}</div>
+      <div class="table-cell">{{ laptop.name }}</div>
+      <div class="table-cell actions-cell">
+        <button class="action-button view-button" (click)="onView(laptop.id)">Ver</button>
+        <button class="action-button edit-button" (click)="onEdit(laptop.id)">Editar</button>
+        <button class="action-button delete-button" (click)="onDelete(laptop)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="create-button-container">
+  <button (click)="onCreate()" class="create-button">Crear nueva laptop</button>
+</div>

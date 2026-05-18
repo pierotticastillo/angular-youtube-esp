@@ -1,0 +1,30 @@
+# Node / Angular
+node_modules/
+.angular/
+dist/
+coverage/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# .NET
+bin/
+obj/
+*.user
+*.rsuser
+
+# IDE / local tooling
+.vs/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/mcp.json
+.idea/
+
+# Local repository backups
+.git-frontend-backup/
+
+# OS files
+.DS_Store
+Thumbs.db

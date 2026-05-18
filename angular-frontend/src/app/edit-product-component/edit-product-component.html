@@ -1,0 +1,26 @@
+<div class="edit-form-container">
+  <h2>Editar Laptop</h2>
+
+  <div *ngIf="isLoading()" class="loading-message">
+    <p>Cargando datos de la laptop...</p>
+  </div>
+
+  <div *ngIf="error()" class="error-message">
+    <p>{{ error() }}</p>
+    <button (click)="loadLaptop()" class="retry-button">Reintentar</button>
+  </div>
+
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading() && !error()">
+    <div>
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" formControlName="name" required>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="save-button" [disabled]="isSaving()">
+        {{ isSaving() ? 'Guardando...' : 'Guardar cambios' }}
+      </button>
+      <button type="button" class="cancel-button" (click)="onCancel()">Cancelar</button>
+    </div>
+  </form>
+</div>
