@@ -1,8 +1,11 @@
-﻿namespace core_web_api.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace core_web_api.Entities
 {
     public class Laptop
     {
         public int Id{ get; set; }
+        [Required]
         public required string Name{ get; set; }
     }
 }

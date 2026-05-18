@@ -80,7 +80,7 @@ export class EditProductComponent implements OnInit {
     this.isSaving.set(true);
     const name = this.editForm.controls.name.value?.trim() ?? '';
 
-    this.laptopService.update(this.id, { id: this.id, name }).subscribe({
+    this.laptopService.update(this.id, { name }).subscribe({
       next: () => {
         this.isSaving.set(false);
         Swal.fire({

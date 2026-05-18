@@ -5,4 +5,4 @@ export interface Laptop {
 
 export type CreateLaptopRequest = Pick<Laptop, 'name'>;
 
-export type UpdateLaptopRequest = Pick<Laptop, 'id' | 'name'>;
+export type UpdateLaptopRequest = Pick<Laptop, 'name'>;

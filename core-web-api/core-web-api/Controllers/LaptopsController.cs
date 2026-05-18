@@ -41,12 +41,13 @@ namespace core_web_api.Controllers
         [HttpPut("{id:int}")]
         public async Task<ActionResult> Put(int id, [FromBody] Laptop laptop)
         {
-            var existLaptop = await context.Laptops.AnyAsync(x => x.Id == id);
-            if (!existLaptop)
+            var existingLaptop = await context.Laptops.FirstOrDefaultAsync(x => x.Id == id);
+            if (existingLaptop == null)
             {
                 return NotFound();
             }
-            context.Update(laptop);
+
+            existingLaptop.Name = laptop.Name;
             await context.SaveChangesAsync();
             return NoContent();
         }
