@@ -35,9 +35,15 @@ namespace core_web_api.Controllers
         }
 
         [HttpPost]
-        public async Task<CreatedAtRouteResult> Post([FromBody] LaptopRequest request)
+        public async Task<ActionResult<Laptop>> Post([FromBody] LaptopRequest request)
         {
-            var laptop = new Laptop { Name = request.Name.Trim() };
+            var laptopName = request.Name.Trim();
+            if (await LaptopNameExists(laptopName))
+            {
+                return Conflict(new { message = "Ya existe una laptop con ese nombre." });
+            }
+
+            var laptop = new Laptop { Name = laptopName };
 
             context.Add(laptop);
             await context.SaveChangesAsync();
@@ -53,7 +59,13 @@ namespace core_web_api.Controllers
                 return NotFound();
             }
 
-            existingLaptop.Name = request.Name.Trim();
+            var laptopName = request.Name.Trim();
+            if (await LaptopNameExists(laptopName, id))
+            {
+                return Conflict(new { message = "Ya existe una laptop con ese nombre." });
+            }
+
+            existingLaptop.Name = laptopName;
             await context.SaveChangesAsync();
             return NoContent();
         }
@@ -68,6 +80,15 @@ namespace core_web_api.Controllers
             }
 
             return NoContent();
+        }
+
+        private async Task<bool> LaptopNameExists(string name, int? excludedId = null)
+        {
+            var normalizedName = name.ToLower();
+
+            return await context.Laptops
+                .AsNoTracking()
+                .AnyAsync(x => x.Name.Trim().ToLower() == normalizedName && (!excludedId.HasValue || x.Id != excludedId.Value));
         }
     }
 }

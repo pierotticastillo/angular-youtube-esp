@@ -84,6 +84,8 @@ export class LaptopApiService {
     }
 
     if (error instanceof HttpErrorResponse) {
+      const apiMessage = this.getApiErrorMessage(error);
+
       if (error.status === 0) {
         return throwError(() => new Error('No se pudo conectar con la API. Verifique que el backend este iniciado.'));
       }
@@ -92,9 +94,29 @@ export class LaptopApiService {
         return throwError(() => new Error('No se encontro la laptop solicitada.'));
       }
 
+      if (error.status === 409) {
+        return throwError(() => new Error(apiMessage ?? 'Ya existe una laptop con esos datos.'));
+      }
+
+      if (error.status === 400) {
+        return throwError(() => new Error(apiMessage ?? 'Los datos enviados no son validos.'));
+      }
+
       return throwError(() => new Error(`Error de la API (${error.status}). Intente nuevamente.`));
     }
 
     return throwError(() => new Error('Ocurrio un error inesperado.'));
+  }
+
+  private getApiErrorMessage(error: HttpErrorResponse): string | null {
+    if (typeof error.error === 'string') {
+      return error.error;
+    }
+
+    if (error.error && typeof error.error.message === 'string') {
+      return error.error.message;
+    }
+
+    return null;
   }
 }

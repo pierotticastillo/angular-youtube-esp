@@ -1,6 +1,6 @@
 .edit-form-container {
     max-width: 600px;
-    margin: 20px auto;
+    margin: 80px auto 2rem;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -30,20 +30,16 @@ label {
     color: #555;
 }
 
-input, textarea {
+input {
     padding: 8px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 14px;
 }
 
-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
 .button-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
 }
@@ -68,7 +64,8 @@ textarea {
     flex: 1;
 }
 
-.loading-message, .error-message {
+.loading-message,
+.error-message {
     text-align: center;
     padding: 20px;
     margin: 20px 0;
@@ -95,13 +92,24 @@ textarea {
     margin-top: 10px;
 }
 
-/* Debug info */
-.debug-info {
-    background-color: #fffde7;
-    padding: 10px;
-    border: 1px solid #ffd54f;
-    border-radius: 4px;
-    margin: 10px 0;
-    font-size: 12px;
-    color: #8d6e63;
+@media (max-width: 768px) {
+    .edit-form-container {
+        margin: 1rem auto;
+        padding: 1rem;
+        width: min(100%, 520px);
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 420px) {
+    .edit-form-container {
+        padding: 0.75rem;
+    }
 }

@@ -10,6 +10,7 @@ pnpm-debug.log*
 # .NET
 bin/
 obj/
+build-check/
 *.user
 *.rsuser
 

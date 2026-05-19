@@ -43,7 +43,7 @@ label {
   letter-spacing: 0.5px;
 }
 
-input, textarea {
+input {
   padding: 12px 15px;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -52,15 +52,10 @@ input, textarea {
   font-family: inherit;
 }
 
-input:focus, textarea:focus {
+input:focus {
   outline: none;
   border-color: #2ecc71;
   box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
-}
-
-textarea {
-  min-height: 120px;
-  resize: vertical;
 }
 
 button[type="submit"] {
@@ -114,11 +109,21 @@ button[type="submit"]:active {
 @media (max-width: 768px) {
   :host {
     padding: 1rem;
-    margin: 1rem;
-    width: 95%;
+    margin: 1rem auto;
+    width: min(100%, 520px);
   }
 
   h2 {
     font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 420px) {
+  :host {
+    padding: 0.75rem;
+  }
+
+  button[type="submit"] {
+    letter-spacing: 0;
   }
 }

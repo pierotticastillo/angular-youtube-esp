@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
@@ -180,11 +181,13 @@ button:active {
 
 .actions-cell {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: flex-end;
 }
 
 .action-button {
+  flex: 0 0 auto;
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
@@ -214,11 +217,6 @@ button:active {
 }
 
 /* Botón de crear */
-.create-button-container {
-  text-align: center;
-  margin-top: 2rem;
-}
-
 .create-button {
   padding: 12px 24px;
   background-color: #2ecc71;
@@ -242,11 +240,21 @@ button:active {
 @media (max-width: 768px) {
   :host {
     padding: 1rem;
-    margin: 1rem;
+    margin: 1rem auto;
+    width: min(100%, 520px);
+  }
+
+  .header-container {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   h2 {
     font-size: 1.5rem;
+  }
+
+  .create-button {
+    width: 100%;
   }
 
   .table-header,
@@ -261,7 +269,24 @@ button:active {
   }
 
   .actions-cell {
-    justify-content: center;
+    justify-content: stretch;
     margin-top: 0.5rem;
+  }
+
+  .action-button {
+    flex: 1 1 120px;
+  }
+}
+
+@media (max-width: 420px) {
+  :host {
+    padding: 0.75rem;
+  }
+
+  button,
+  .create-button {
+    letter-spacing: 0;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }

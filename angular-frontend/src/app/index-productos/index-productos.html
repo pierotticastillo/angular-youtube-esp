@@ -1,4 +1,7 @@
-<h2>Lista de Laptops</h2>
+<div class="header-container">
+  <h2>Lista de Laptops</h2>
+  <button (click)="onCreate()" class="create-button">Crear nueva laptop</button>
+</div>
 
 <div *ngIf="isLoading()" class="loading-message">
   <p>Cargando laptops...</p>
@@ -32,8 +35,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="create-button-container">
-  <button (click)="onCreate()" class="create-button">Crear nueva laptop</button>
 </div>
