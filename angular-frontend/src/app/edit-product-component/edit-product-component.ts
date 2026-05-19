@@ -20,7 +20,7 @@ export class EditProductComponent implements OnInit {
   private readonly laptopService = inject(LaptopApiService);
 
   readonly editForm = this.formBuilder.group({
-    name: ['', Validators.required],
+    name: ['', [Validators.required, Validators.pattern(/\S/)]],
   });
 
   readonly isLoading = signal(true);
@@ -79,6 +79,12 @@ export class EditProductComponent implements OnInit {
 
     this.isSaving.set(true);
     const name = this.editForm.controls.name.value?.trim() ?? '';
+
+    if (!name) {
+      this.isSaving.set(false);
+      this.editForm.markAllAsTouched();
+      return;
+    }
 
     this.laptopService.update(this.id, { name }).subscribe({
       next: () => {

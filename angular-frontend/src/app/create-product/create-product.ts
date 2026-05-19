@@ -18,7 +18,7 @@ export class CreateProduct {
   isSaving = false;
 
   productForm = this.formBuilder.group({
-    name: ['', Validators.required],
+    name: ['', [Validators.required, Validators.pattern(/\S/)]],
   });
 
   onSubmit(): void {
@@ -36,6 +36,12 @@ export class CreateProduct {
 
     this.isSaving = true;
     const name = this.productForm.controls.name.value?.trim() ?? '';
+
+    if (!name) {
+      this.isSaving = false;
+      this.productForm.markAllAsTouched();
+      return;
+    }
 
     this.laptopService.create({ name }).subscribe({
       next: (createdLaptop) => {
