@@ -30,7 +30,6 @@ namespace core_web_api.Controllers
             {
                 return NotFound();
             }
-
             return laptop;
         }
 
@@ -42,9 +41,7 @@ namespace core_web_api.Controllers
             {
                 return Conflict(new { message = "Ya existe una laptop con ese nombre." });
             }
-
             var laptop = new Laptop { Name = laptopName };
-
             context.Add(laptop);
             await context.SaveChangesAsync();
             return CreatedAtRoute("GetLaptopById", new { id = laptop.Id }, laptop);
@@ -58,13 +55,11 @@ namespace core_web_api.Controllers
             {
                 return NotFound();
             }
-
             var laptopName = request.Name.Trim();
             if (await LaptopNameExists(laptopName, id))
             {
                 return Conflict(new { message = "Ya existe una laptop con ese nombre." });
             }
-
             existingLaptop.Name = laptopName;
             await context.SaveChangesAsync();
             return NoContent();

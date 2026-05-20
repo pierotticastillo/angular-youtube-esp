@@ -1,0 +1,150 @@
+{
+  "info": {
+    "name": "Laptops API",
+    "description": "Coleccion para probar los endpoints de laptops de angular-youtube-esp.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get all laptops",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/laptops",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "laptops"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get laptop by id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/laptops/{{laptopId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "laptops",
+            "{{laptopId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create laptop",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Asus Go 15-M\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/laptops",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "laptops"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update laptop",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"ASUS L410-M\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/laptops/{{laptopId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "laptops",
+            "{{laptopId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete laptop",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/laptops/{{laptopId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "laptops",
+            "{{laptopId}}"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:7193"
+    },
+    {
+      "key": "laptopId",
+      "value": "1"
+    }
+  ]
+}

@@ -37,6 +37,10 @@ La URL HTTPS usada por el frontend esta configurada en:
 - `angular-frontend/src/environments/environment.ts`
 - `angular-frontend/src/environments/environment.development.ts`
 
+## Cliente API
+
+La coleccion para importar en Postman esta en `api-clients/postman/laptops-api.postman_collection.json`.
+
 ## Verificaciones
 
 Frontend:
