@@ -94,6 +94,10 @@ cd core-web-api
 dotnet build core-web-api.slnx
 ```
 
+## Licencia
+
+Distribuido bajo la licencia MIT. Ver el archivo [LICENSE](LICENSE) para mas informacion.
+
 ## Git
 
 Este directorio raiz esta preparado para ser el unico repositorio. No se deben versionar `node_modules`, `dist`, `.angular`, `bin`, `obj`, `.vs` ni archivos `*.user`.
