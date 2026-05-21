@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -15,7 +15,7 @@ export class CreateProduct {
   private readonly laptopService = inject(LaptopApiService);
   private readonly router = inject(Router);
 
-  isSaving = false;
+  readonly isSaving = signal(false);
 
   productForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.pattern(/\S/)]],
@@ -34,18 +34,18 @@ export class CreateProduct {
       return;
     }
 
-    this.isSaving = true;
+    this.isSaving.set(true);
     const name = this.productForm.controls.name.value?.trim() ?? '';
 
     if (!name) {
-      this.isSaving = false;
+      this.isSaving.set(false);
       this.productForm.markAllAsTouched();
       return;
     }
 
     this.laptopService.create({ name }).subscribe({
       next: (createdLaptop) => {
-        this.isSaving = false;
+        this.isSaving.set(false);
         Swal.fire({
           title: 'Exito',
           text: `Laptop creada: ${createdLaptop.name}`,
@@ -55,7 +55,7 @@ export class CreateProduct {
         }).then(() => this.router.navigate(['/products']));
       },
       error: (error: Error) => {
-        this.isSaving = false;
+        this.isSaving.set(false);
         Swal.fire({
           title: 'Error',
           text: error.message,

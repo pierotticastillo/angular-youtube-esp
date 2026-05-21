@@ -6,7 +6,7 @@
     <input type="text" id="name" formControlName="name" required>
   </div>
 
-  <button type="submit" [disabled]="isSaving">
-    {{ isSaving ? 'Guardando...' : 'Crear' }}
+  <button type="submit" [disabled]="isSaving()">
+    {{ isSaving() ? 'Guardando...' : 'Crear' }}
   </button>
 </form>

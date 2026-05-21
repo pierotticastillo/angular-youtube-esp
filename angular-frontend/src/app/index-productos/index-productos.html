@@ -9,7 +9,7 @@
 
 <div *ngIf="error()" class="error-message">
   <p>{{ error() }}</p>
-  <button (click)="loadLaptops(true)" class="retry-button">Reintentar</button>
+  <button (click)="loadLaptops()" class="retry-button">Reintentar</button>
 </div>
 
 <div *ngIf="!isLoading() && !error()">

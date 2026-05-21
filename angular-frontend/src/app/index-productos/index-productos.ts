@@ -20,16 +20,14 @@ export class IndexProductos implements OnInit {
   readonly error = signal<string | null>(null);
 
   ngOnInit(): void {
-    this.loadLaptops(true);
+    this.loadLaptops();
   }
 
-  loadLaptops(forceRefresh = false): void {
+  loadLaptops(): void {
     this.isLoading.set(true);
     this.error.set(null);
 
-    const request$ = forceRefresh ? this.laptopService.refresh() : this.laptopService.getAll();
-
-    request$.subscribe({
+    this.laptopService.getAll().subscribe({
       next: (laptops) => {
         this.laptops.set(laptops);
         this.isLoading.set(false);

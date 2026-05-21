@@ -14,5 +14,14 @@ namespace core_web_api
         protected ApplicationDbContext()
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Laptop>(entity =>
+            {
+                entity.Property(e => e.Name).HasMaxLength(100);
+                entity.HasIndex(e => e.Name).IsUnique();
+            });
+        }
     }
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, TimeoutError, catchError, map, of, tap, throwError, timeout } from 'rxjs';
+import { Observable, TimeoutError, catchError, map, throwError, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { CreateLaptopRequest, Laptop, UpdateLaptopRequest } from '../models/laptop.model';
 
@@ -12,58 +12,31 @@ const REQUEST_TIMEOUT_MS = 7000;
 export class LaptopApiService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = `${environment.apiURL}/api/laptops`;
-  private laptopsCache: Laptop[] = [];
 
   getAll(): Observable<Laptop[]> {
     return this.request(this.http.get<unknown[]>(this.baseUrl)).pipe(
-      map((response) => response.map((item) => this.toLaptop(item))),
-      tap((laptops) => {
-        this.laptopsCache = laptops;
-      })
+      map((response) => response.map((item) => this.toLaptop(item)))
     );
   }
 
   getById(id: number): Observable<Laptop> {
-    const cachedLaptop = this.laptopsCache.find((laptop) => laptop.id === id);
-
-    if (cachedLaptop) {
-      return of(cachedLaptop);
-    }
-
-    return this.request(this.http.get<unknown>(`${this.baseUrl}/${id}`)).pipe(map((response) => this.toLaptop(response)));
+    return this.request(this.http.get<unknown>(`${this.baseUrl}/${id}`)).pipe(
+      map((response) => this.toLaptop(response))
+    );
   }
 
   create(laptop: CreateLaptopRequest): Observable<Laptop> {
     return this.request(this.http.post<unknown>(this.baseUrl, laptop)).pipe(
-      map((response) => this.toLaptop(response)),
-      tap((createdLaptop) => {
-        this.laptopsCache = [...this.laptopsCache, createdLaptop];
-      })
+      map((response) => this.toLaptop(response))
     );
   }
 
   update(id: number, laptop: UpdateLaptopRequest): Observable<void> {
-    return this.request(this.http.put<void>(`${this.baseUrl}/${id}`, laptop)).pipe(
-      tap(() => {
-        this.laptopsCache = this.laptopsCache.map((item) => (item.id === id ? { ...item, ...laptop } : item));
-      })
-    );
+    return this.request(this.http.put<void>(`${this.baseUrl}/${id}`, laptop));
   }
 
   delete(id: number): Observable<void> {
-    return this.request(this.http.delete<void>(`${this.baseUrl}/${id}`)).pipe(
-      tap(() => {
-        this.laptopsCache = this.laptopsCache.filter((laptop) => laptop.id !== id);
-      })
-    );
-  }
-
-  refresh(): Observable<Laptop[]> {
-    return this.getAll();
-  }
-
-  getCachedById(id: number): Laptop | undefined {
-    return this.laptopsCache.find((laptop) => laptop.id === id);
+    return this.request(this.http.delete<void>(`${this.baseUrl}/${id}`));
   }
 
   private request<T>(source: Observable<T>): Observable<T> {
